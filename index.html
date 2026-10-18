@@ -1,0 +1,1432 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#081f3f" />
+  <link rel="icon" href="data:," />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Libre+Baskerville:wght@400;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>Dog Tags — Vets To Vets United</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --navy: #071d3c;
+      --navy-2: #0c2c58;
+      --red: #d8172f;
+      --red-dark: #b81125;
+      --ink: #101d30;
+      --muted: #59667a;
+      --paper: #f8f7f3;
+      --surface: #ffffff;
+      --surface-2: #eef2f6;
+      --line: #cfd7e1;
+      --silver: #a8b1ba;
+      --white: #ffffff;
+      --shadow: 0 24px 70px rgba(5, 24, 51, .14);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ink: #f1f5fa;
+        --muted: #b7c2cf;
+        --paper: #07121f;
+        --surface: #0c1c2e;
+        --surface-2: #11263d;
+        --line: #2e4157;
+        --silver: #7f8d9b;
+        --shadow: 0 28px 80px rgba(0, 0, 0, .38);
+      }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Source Sans 3", sans-serif;
+      font-size: 17px;
+      line-height: 1.55;
+      overflow-x: hidden;
+    }
+    button, a { font: inherit; }
+    button { color: inherit; }
+    img { display: block; max-width: 100%; }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+    .view[hidden] { display: none !important; }
+    body.profile-open #landing { display: none; }
+    #profile { position: relative; z-index: 50; min-height: 100vh; background: var(--paper); }
+    .site-header {
+      position: relative;
+      z-index: 20;
+      background: #fff;
+      color: #191919;
+      border-bottom: 1px solid #ececec;
+    }
+    .site-header-inner {
+      width: max-content;
+      max-width: calc(100% - 44px);
+      min-height: 155px;
+      margin: 0 auto;
+      padding: 12px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 44px;
+    }
+    .brand-link {
+      display: inline-flex;
+      align-items: center;
+      color: #071d3c;
+      text-decoration: none;
+      flex: 0 0 auto;
+    }
+    .brand-link img { width: 120px; height: 120px; object-fit: contain; flex: 0 0 auto; }
+    .primary-nav {
+      display: grid;
+      justify-items: center;
+      gap: 20px;
+      min-width: 0;
+      transform: translateY(18px);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(18px, 2vw, 30px);
+    }
+    .nav-links > a {
+      color: #252f66;
+      font-family: "Libre Baskerville", Georgia, serif;
+      font-size: .9rem;
+      font-weight: 700;
+      line-height: 1.25;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .nav-links > a:hover { color: #c8182f; }
+    .login-link { display: inline-flex; align-items: center; gap: 7px; }
+    .login-link-icon {
+      width: 21px;
+      height: 21px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 21px;
+      border-radius: 50%;
+      background: #252f66;
+      color: #fff;
+    }
+    .login-link-icon svg { width: 13px; height: 13px; fill: currentColor; }
+    .dog-tags-cta {
+      width: 198px;
+      display: block;
+      line-height: 0;
+      text-decoration: none;
+    }
+    .dog-tags-cta img { width: 100%; height: auto; }
+    .dog-tags-cta:focus-visible, .nav-links > a:focus-visible { outline: 3px solid #c8182f; outline-offset: 3px; }
+    .nav-toggle {
+      appearance: none;
+      width: 46px;
+      height: 44px;
+      display: none;
+      place-items: center;
+      padding: 0;
+      border: 0;
+      background: #fff;
+      color: #191919;
+      cursor: pointer;
+    }
+    .nav-toggle-lines, .nav-toggle-lines::before, .nav-toggle-lines::after {
+      display: block;
+      width: 26px;
+      height: 2px;
+      background: currentColor;
+      transition: transform .18s ease, opacity .18s ease;
+    }
+    .nav-toggle-lines { position: relative; }
+    .nav-toggle-lines::before, .nav-toggle-lines::after { content: ""; position: absolute; left: 0; }
+    .nav-toggle-lines::before { top: -8px; }
+    .nav-toggle-lines::after { top: 8px; }
+    .nav-toggle[aria-expanded="true"] .nav-toggle-lines { background: transparent; }
+    .nav-toggle[aria-expanded="true"] .nav-toggle-lines::before { top: 0; transform: rotate(45deg); }
+    .nav-toggle[aria-expanded="true"] .nav-toggle-lines::after { top: 0; transform: rotate(-45deg); }
+    .hero {
+      position: relative;
+      min-height: min(780px, 92vh);
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(340px, .92fr);
+      align-items: center;
+      gap: clamp(30px, 6vw, 96px);
+      padding: clamp(54px, 8vw, 112px) max(24px, calc((100vw - 1200px) / 2));
+      background: var(--navy);
+      color: var(--white);
+      isolation: isolate;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background:
+        linear-gradient(104deg, rgba(7,29,60,.2) 0 56%, rgba(7,29,60,.86) 76%),
+        repeating-linear-gradient(-53deg, transparent 0 43px, rgba(255,255,255,.025) 43px 44px);
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 36vw;
+      min-width: 420px;
+      height: 120%;
+      right: -15vw;
+      top: -10%;
+      z-index: -1;
+      background: var(--red);
+      transform: skewX(-13deg);
+      opacity: .92;
+    }
+    .hero-copy { max-width: 710px; position: relative; z-index: 1; }
+    .program-mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 22px;
+      color: #dce8f6;
+      font-size: .84rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .program-mark::before, .program-mark::after { content: ""; display: block; height: 3px; }
+    .program-mark::before { width: 42px; background: var(--red); }
+    .program-mark::after { width: 8px; background: #fff; }
+    h1, h2, h3, .display {
+      font-family: "Barlow Condensed", sans-serif;
+      text-wrap: balance;
+    }
+    h1 {
+      margin: 0;
+      max-width: 780px;
+      font-size: clamp(3.45rem, 7.4vw, 6.75rem);
+      line-height: .88;
+      letter-spacing: -.025em;
+      text-transform: uppercase;
+    }
+    .hero-lede {
+      max-width: 640px;
+      margin: 28px 0 34px;
+      font-size: clamp(1.12rem, 2vw, 1.35rem);
+      color: #dce6f2;
+    }
+    .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+    .button {
+      min-height: 50px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 20px;
+      border: 0;
+      border-radius: 4px;
+      background: var(--red);
+      color: #fff;
+      font-weight: 750;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(216,23,47,.23);
+      transition: background .18s ease, transform .18s ease;
+    }
+    .button:hover { background: var(--red-dark); transform: translateY(-1px); }
+    .button:focus-visible, .team-card:focus-visible, .text-link:focus-visible {
+      outline: 3px solid #62a9ff;
+      outline-offset: 4px;
+    }
+    .button.ghost { background: transparent; border: 1px solid rgba(255,255,255,.45); box-shadow: none; }
+    .button.ghost:hover { background: rgba(255,255,255,.1); }
+    .button[disabled], .button[aria-disabled="true"] { opacity: .58; cursor: default; transform: none; box-shadow: none; }
+    .arrow { font-size: 1.2em; line-height: 1; }
+    .tag-figure {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      justify-self: end;
+      width: min(100%, 570px);
+      aspect-ratio: 1 / 1.05;
+      filter: drop-shadow(0 34px 35px rgba(0,0,0,.32));
+    }
+    .chain-layer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      pointer-events: none;
+    }
+    .chain-layer path {
+      fill: none;
+      stroke: #c9ced1;
+      stroke-width: 9;
+      stroke-linecap: round;
+      stroke-dasharray: 1 14;
+      filter: drop-shadow(0 2px 1px rgba(0,0,0,.5));
+    }
+    .chain-behind { z-index: 0; }
+    .chain-between { z-index: 2; }
+    .chain-front { z-index: 4; }
+    .dog-tag {
+      position: absolute;
+      top: 25%;
+      width: 45%;
+      height: 74%;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      isolation: isolate;
+      padding: 24% 3% 11%;
+      border: 3px solid #d9ddde;
+      border-radius: 28% 28% 18% 18% / 17% 17% 10% 10%;
+      background: linear-gradient(115deg, #d9dcda 0%, #aeb2ae 45%, #eff1ef 68%, #9da19d 100%);
+      box-shadow: inset 0 0 0 4px rgba(70,77,78,.32), inset 0 0 0 7px rgba(255,255,255,.48), 0 22px 28px rgba(0,0,0,.3);
+    }
+    .dog-tag::before {
+      content: "";
+      position: absolute;
+      top: 5.5%;
+      left: 50%;
+      width: 12%;
+      aspect-ratio: 1;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      z-index: 2;
+      background: var(--navy);
+      box-shadow: inset 0 0 0 4px #808783, 0 0 0 2px #eef0ed;
+    }
+    .dog-tag img {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: none;
+      height: auto;
+      object-fit: contain;
+      transform: scale(1.06);
+      transform-origin: 50% 50%;
+    }
+    .dog-tag.female { left: 8%; top: 23%; transform: rotate(7deg); z-index: 3; }
+    .dog-tag.male { right: 8%; top: 23%; transform: rotate(-7deg); z-index: 1; }
+    .dog-tag.female img { transform: translateY(-11%) scale(1.06); }
+    .dog-tag.male img { transform: translateY(-6%) scale(1.06); }
+    .sponsor-picker {
+      position: relative;
+      z-index: 3;
+      background: var(--red);
+      color: #fff;
+    }
+    .sponsor-picker-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: clamp(42px, 6vw, 70px) 24px;
+    }
+    .sponsor-picker-head {
+      display: grid;
+      grid-template-columns: minmax(260px, .7fr) minmax(0, 1.3fr);
+      gap: clamp(24px, 6vw, 86px);
+      align-items: end;
+      margin-bottom: 28px;
+    }
+    .sponsor-picker h2 {
+      color: #fff;
+      font-size: clamp(2.8rem, 5vw, 4.7rem);
+    }
+    .sponsor-picker p { margin: 0; max-width: 650px; color: #fff; font-size: 1.1rem; }
+    .sponsor-picker .eyebrow { color: #fff; opacity: .8; }
+    .giving-terms {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px 30px;
+      margin: 0 0 28px;
+      padding: 18px 20px;
+      border-top: 1px solid rgba(255,255,255,.5);
+      border-bottom: 1px solid rgba(255,255,255,.5);
+    }
+    .giving-goal { display: flex; align-items: baseline; gap: 10px; }
+    .giving-goal strong { font: 800 2rem/1 "Barlow Condensed", sans-serif; }
+    .giving-goal span { font-weight: 650; }
+    .giving-levels { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+    .giving-levels > span:first-child { margin-right: 2px; font-weight: 650; }
+    .giving-level {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 5px 11px;
+      border: 1px solid rgba(255,255,255,.76);
+      border-radius: 2px;
+      background: rgba(7,29,60,.16);
+      color: #fff;
+      font-weight: 750;
+    }
+    .sponsor-options {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .sponsor-option {
+      min-height: 66px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 13px 16px;
+      border: 2px solid rgba(255,255,255,.88);
+      border-radius: 3px;
+      background: #fff;
+      color: var(--navy);
+      font-family: "Barlow Condensed", sans-serif;
+      font-size: 1.2rem;
+      font-weight: 800;
+      line-height: 1;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: background .18s ease, color .18s ease;
+    }
+    .sponsor-option:hover { background: var(--navy); color: #fff; }
+    .sponsor-option:focus-visible { outline: 3px solid #62a9ff; outline-offset: 3px; }
+    .sponsor-option:last-child { grid-column: 2 / span 2; }
+    .sponsor-option .arrow { flex: 0 0 auto; }
+    .sponsor-picker-note { margin-top: 16px !important; font-size: .9rem !important; opacity: .82; }
+    .impact-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      max-width: 1060px;
+      margin: -1px auto 0;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      position: relative;
+      z-index: 2;
+    }
+    .impact-item { padding: 28px 32px; border-right: 1px solid var(--line); }
+    .impact-item:last-child { border-right: 0; }
+    .impact-number { font: 800 clamp(2.2rem, 4vw, 3.4rem)/.9 "Barlow Condensed", sans-serif; color: var(--red); }
+    .impact-label { margin-top: 8px; color: var(--muted); font-weight: 650; }
+    .section { max-width: 1200px; margin: 0 auto; padding: clamp(76px, 10vw, 130px) 24px; }
+    .section-head { max-width: 760px; margin-bottom: 44px; }
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--red);
+      font-size: .82rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    h2 { margin: 0; font-size: clamp(2.65rem, 5.4vw, 4.8rem); line-height: 1; text-transform: uppercase; letter-spacing: -.015em; }
+    .section-head p:last-child { max-width: 680px; margin: 18px 0 0; font-size: 1.14rem; color: var(--muted); }
+    .steps { border-top: 1px solid var(--line); }
+    .step {
+      display: grid;
+      grid-template-columns: 88px minmax(180px, .65fr) minmax(0, 1fr);
+      gap: 30px;
+      align-items: start;
+      padding: 30px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .step-no { font: 800 2.6rem/1 "Barlow Condensed", sans-serif; color: var(--red); }
+    .step h3 { margin: 0; font-size: 1.75rem; line-height: 1; text-transform: uppercase; }
+    .step p { margin: 0; color: var(--muted); }
+    .teams-wrap { background: var(--surface-2); position: relative; }
+    .teams-wrap::before { content: ""; position: absolute; inset: 0 auto auto 0; width: 100%; height: 8px; background: linear-gradient(90deg, var(--navy) 0 66%, var(--red) 66%); }
+    .team-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 18px; }
+    .team-card {
+      grid-column: span 2;
+      appearance: none;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 390px;
+      padding: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      background: var(--surface);
+      color: inherit;
+      text-align: left;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 7px 24px rgba(7, 29, 60, .06);
+      transition: border-color .18s ease, transform .18s ease, box-shadow .18s ease;
+    }
+    .team-card:hover { transform: translateY(-3px); border-color: var(--navy-2); box-shadow: 0 18px 38px rgba(7,29,60,.13); }
+    .portrait-placeholder {
+      min-height: 245px;
+      display: grid;
+      place-items: center;
+      position: relative;
+      background:
+        linear-gradient(145deg, rgba(8,31,63,.04), transparent 50%),
+        repeating-linear-gradient(135deg, transparent 0 20px, rgba(127,143,160,.08) 20px 21px),
+        var(--surface-2);
+      color: var(--muted);
+    }
+    .portrait-placeholder svg { width: 86px; height: 86px; opacity: .45; }
+    .team-portrait {
+      width: 100%;
+      height: 245px;
+      object-fit: contain;
+      object-position: center;
+      background: var(--navy);
+    }
+    .portrait-note {
+      position: absolute;
+      left: 16px;
+      bottom: 15px;
+      padding: 5px 9px;
+      background: var(--surface);
+      color: var(--muted);
+      font-size: .75rem;
+      font-weight: 750;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+    .team-info {
+      flex: 1;
+      padding: 19px 20px 22px;
+      border-top: 6px solid var(--red);
+      background: var(--navy);
+      color: #fff;
+    }
+    .team-index { color: #ff7a8a; font-weight: 800; font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; }
+    .team-card h3 { margin: 5px 0 10px; color: #fff; font-size: 1.72rem; line-height: 1; text-transform: uppercase; }
+    .team-info p { margin: 0; color: #d7e3ef; font-size: .95rem; }
+    .team-card:nth-child(4n + 1):nth-last-child(1) { grid-column: 4 / span 2; }
+    .team-card:nth-child(4n + 1):nth-last-child(2) { grid-column: 3 / span 2; }
+    .team-card:nth-child(4n + 1):nth-last-child(3) { grid-column: 2 / span 2; }
+    .commitment { background: var(--navy); color: #fff; }
+    .commitment-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, .72fr);
+      gap: clamp(40px, 7vw, 100px);
+      align-items: center;
+      padding: clamp(72px, 9vw, 116px) 24px;
+    }
+    .commitment h2 { color: #fff; }
+    .commitment p { max-width: 680px; color: #d5e1ee; font-size: 1.13rem; }
+    .commitment blockquote { margin: 0; padding: 30px 0 30px 30px; border-left: 5px solid var(--red); font: 700 clamp(1.7rem, 3vw, 2.45rem)/1.05 "Barlow Condensed", sans-serif; text-transform: uppercase; }
+    .support-note { margin-top: 22px; font-size: .92rem !important; color: #aebed0 !important; }
+    .site-footer {
+      background: #232f6b;
+      color: #fff;
+      border-top: 0;
+    }
+    .footer-main {
+      max-width: 1368px;
+      margin: 0 auto;
+      padding: 54px 48px 122px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: clamp(80px, 12vw, 210px);
+      align-items: start;
+    }
+    .footer-intro { text-align: left; }
+    .footer-seal {
+      width: 186px;
+      height: 186px;
+      margin: 0 0 10px;
+      object-fit: contain;
+    }
+    .footer-org-name {
+      margin: 0 0 23px;
+      color: #fff;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      line-height: 1.2;
+    }
+    .footer-intro p {
+      max-width: 410px;
+      margin: 0;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.55;
+    }
+    .footer-details { display: contents; }
+    .footer-left-meta { margin-top: 26px; }
+    .footer-ids {
+      display: grid;
+      gap: 2px;
+      margin: 0;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.5;
+    }
+    .footer-ids strong { font-weight: 700; }
+    .footer-candid {
+      display: block;
+      width: 102px;
+      margin-top: 16px;
+    }
+    .footer-candid img { width: 102px; height: 102px; object-fit: contain; }
+    .footer-rule { display: none; }
+    .footer-contact { padding-top: 81px; }
+    .footer-contact h2 {
+      margin: 0 0 26px;
+      color: #fff;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      letter-spacing: 0;
+      line-height: 1.2;
+      text-transform: none;
+    }
+    .footer-contact p {
+      margin: 0 0 12px;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.5;
+    }
+    .footer-contact .address { margin-bottom: 27px; }
+    .footer-contact .address strong { display: block; margin-bottom: 2px; font-size: 1em; font-weight: 700; }
+    .site-footer a { color: #fff; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    .site-footer a:hover { color: #fff; text-decoration-thickness: 2px; }
+    .footer-contact-button {
+      min-width: 142px;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 8px;
+      padding: 10px 22px;
+      background: #fff;
+      color: #232f6b !important;
+      font-weight: 700;
+      text-decoration: none !important;
+    }
+    .footer-contact-button:hover { background: #eef1f8; }
+    .footer-contact-button:focus-visible { outline: 3px solid #62a9ff; outline-offset: 4px; }
+    .footer-social { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 25px; }
+    .footer-social a {
+      width: 35px;
+      height: 35px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      border-radius: 50%;
+      background: #fff;
+      color: #232f6b;
+      text-decoration: none;
+      line-height: 1;
+    }
+    .footer-social a:hover { background: #eef1f8; color: #232f6b; }
+    .footer-social svg { width: 18px; height: 18px; fill: currentColor; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,.18); }
+    .footer-bottom-inner {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 24px 48px 26px;
+      color: #fff;
+      font-size: .92rem;
+      font-weight: 300;
+      line-height: 1.55;
+      text-align: center;
+    }
+
+    /* Team profile */
+    .profile-hero { background: var(--navy); color: #fff; }
+    .profile-shell { max-width: 1180px; margin: 0 auto; padding: 28px 24px 78px; }
+    .profile-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 22px;
+      margin-bottom: 38px;
+    }
+    .back-button {
+      appearance: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 0;
+      border: 0;
+      background: transparent;
+      color: #d9e5f2;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .back-button:hover { color: #fff; }
+    .team-nav { display: flex; align-items: center; gap: 9px; }
+    .team-position { min-width: 86px; color: #9fb1c5; font-size: .86rem; font-weight: 700; text-align: center; }
+    .team-nav-button {
+      appearance: none;
+      min-height: 42px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 13px;
+      border: 1px solid rgba(255,255,255,.34);
+      border-radius: 3px;
+      background: transparent;
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .team-nav-button:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.62); }
+    .team-nav-button:focus-visible, .back-button:focus-visible { outline: 3px solid #62a9ff; outline-offset: 3px; }
+    .profile-grid { display: grid; grid-template-columns: minmax(300px, .8fr) minmax(0, 1.2fr); gap: clamp(36px, 7vw, 88px); align-items: center; }
+    .profile-photo { min-height: 510px; border: 1px solid rgba(255,255,255,.22); background: rgba(255,255,255,.06); color: #bdcad7; }
+    .profile-photo .team-portrait { height: 510px; object-position: 50% 47%; }
+    .profile-photo .portrait-note { background: #102f58; color: #d7e1eb; }
+    .profile-copy .team-index { color: #ff5d70; }
+    .profile-copy h1 { margin-top: 10px; font-size: clamp(3.3rem, 6.6vw, 6.4rem); }
+    .profile-copy .intro { margin: 24px 0 0; max-width: 630px; color: #d7e3ef; font-size: 1.18rem; }
+    .profile-body { max-width: 1120px; margin: 0 auto; padding: clamp(64px, 9vw, 105px) 24px; }
+    .story-layout { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr); gap: clamp(40px, 7vw, 90px); align-items: start; }
+    .story-copy h2 { font-size: clamp(2.4rem, 4.2vw, 4rem); }
+    .copy-placeholder { margin-top: 28px; }
+    .copy-line { height: 14px; margin: 12px 0; border-radius: 2px; background: var(--line); opacity: .62; }
+    .copy-line:nth-child(2) { width: 94%; }
+    .copy-line:nth-child(3) { width: 87%; }
+    .copy-line:nth-child(4) { width: 97%; }
+    .copy-line:nth-child(5) { width: 72%; }
+    .copy-caption { margin-top: 22px; color: var(--muted); font-style: italic; }
+    .profile-aside { display: grid; gap: 26px; }
+    .fact-block { padding: 24px 0; border-top: 4px solid var(--red); border-bottom: 1px solid var(--line); }
+    .fact-block h3 { margin: 0 0 16px; font-size: 1.55rem; text-transform: uppercase; }
+    .fact-row { display: grid; grid-template-columns: 105px 1fr; gap: 14px; padding: 9px 0; border-top: 1px solid var(--line); }
+    .fact-row dt { color: var(--muted); }
+    .fact-row dd { margin: 0; font-weight: 700; }
+    .meter-block { padding: 26px; background: var(--surface-2); }
+    .meter-block h3 { margin: 0; font-size: 1.55rem; text-transform: uppercase; }
+    .meter-status { margin: 7px 0 18px; color: var(--muted); }
+    .meter-track { height: 22px; overflow: hidden; background: var(--line); border-radius: 2px; }
+    .meter-fill { width: 0; height: 100%; background: var(--red); }
+    .meter-note { margin: 10px 0 0; font-size: .86rem; color: var(--muted); }
+    .profile-cta { background: var(--red); color: #fff; }
+    .profile-cta-inner { max-width: 1120px; margin: 0 auto; padding: clamp(42px, 6vw, 68px) 24px; display: flex; justify-content: space-between; align-items: center; gap: 32px; }
+    .profile-cta h2 { color: #fff; font-size: clamp(2.7rem, 5vw, 4.8rem); }
+    .profile-cta p { margin: 10px 0 0; max-width: 620px; color: #fff; }
+    .profile-gift-levels { min-width: 300px; }
+    .profile-gift-label { margin: 0 0 10px !important; font-size: .9rem; font-weight: 750; }
+    .profile-gift-levels .giving-levels { gap: 7px; }
+    .profile-gift-levels .giving-level { background: #fff; border-color: #fff; color: var(--navy); text-decoration: none; }
+    .profile-gift-levels .giving-level:hover { background: var(--navy); color: #fff; }
+    .profile-gift-levels .giving-level:focus-visible { outline: 3px solid #62a9ff; outline-offset: 3px; }
+    .profile-cta .button { background: #fff; color: var(--navy); box-shadow: none; }
+    .profile-cta .button:hover { background: #fff; transform: none; }
+    .profile-gift-levels .button { width: 100%; margin-top: 18px; }
+
+    @media (max-width: 1080px) {
+      html { scroll-padding-top: 126px; }
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .site-header-inner {
+        width: min(100%, 680px);
+        max-width: none;
+        min-height: 126px;
+        padding: 12px 20px;
+        display: grid;
+        grid-template-columns: 94px minmax(180px, 210px) 46px;
+        justify-content: center;
+        gap: 20px;
+      }
+      .brand-link { grid-column: 1; grid-row: 1; justify-self: center; }
+      .brand-link img { width: 94px; height: 94px; }
+      .nav-toggle { display: grid; grid-column: 3; grid-row: 1; justify-self: center; }
+      .primary-nav { display: contents; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        max-height: calc(100vh - 126px);
+        overflow-y: auto;
+        width: 100%;
+        padding: 8px 24px 18px;
+        background: #fff;
+        border-top: 1px solid #ececec;
+        box-shadow: 0 18px 30px rgba(0,0,0,.14);
+      }
+      .primary-nav[data-open="true"] .nav-links { display: block; }
+      .nav-links > a {
+        display: flex;
+        width: min(100%, 520px);
+        min-height: 48px;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        padding: 12px 0;
+        border-bottom: 1px solid #e4e4e4;
+        color: #252f66;
+        font-family: "Libre Baskerville", Georgia, serif;
+        font-size: .98rem;
+        text-align: center;
+      }
+      .dog-tags-cta {
+        grid-column: 2;
+        grid-row: 1;
+        align-self: center;
+        justify-self: center;
+        width: min(100%, 210px);
+        margin: 0;
+      }
+    }
+    @media (max-width: 920px) {
+      .hero { min-height: auto; grid-template-columns: 1fr; padding-top: 70px; }
+      .hero::after { width: 65vw; min-width: 0; right: -32vw; opacity: .55; }
+      .tag-figure { justify-self: center; width: min(92%, 560px); }
+      .sponsor-picker-head { grid-template-columns: 1fr; }
+      .sponsor-options { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .sponsor-option:last-child { grid-column: 1 / -1; }
+      .team-grid { grid-template-columns: repeat(4, 1fr); }
+      .team-card,
+      .team-card:nth-child(4n + 1):nth-last-child(-n + 3) { grid-column: span 2; }
+      .team-card:nth-child(odd):last-child { grid-column: 2 / span 2; }
+      .commitment-inner, .profile-grid, .story-layout { grid-template-columns: 1fr; }
+      .profile-copy { max-width: 740px; }
+      .profile-photo { min-height: 420px; }
+      .profile-photo .team-portrait { height: 420px; }
+      .profile-aside { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      html { scroll-padding-top: 112px; }
+      body { font-size: 16px; }
+      .hero { padding: 54px 20px 64px; gap: 38px; }
+      h1 { font-size: clamp(3rem, 14vw, 3.75rem); line-height: .94; }
+      .hero-lede { margin-top: 22px; }
+      .actions { align-items: stretch; }
+      .actions .button { width: 100%; }
+      .sponsor-picker-inner { padding-left: 20px; padding-right: 20px; }
+      .sponsor-options { grid-template-columns: 1fr; }
+      .sponsor-option:last-child { grid-column: auto; }
+      .impact-strip { grid-template-columns: 1fr; margin: 0; box-shadow: none; border-bottom: 1px solid var(--line); }
+      .impact-item { border-right: 0; border-bottom: 1px solid var(--line); padding: 23px 24px; }
+      .impact-item:last-child { border-bottom: 0; }
+      .section { padding-left: 20px; padding-right: 20px; }
+      .step { grid-template-columns: 54px 1fr; gap: 8px 15px; }
+      .step p { grid-column: 2; }
+      .team-grid { grid-template-columns: 1fr; gap: 30px; }
+      .team-card,
+      .team-card:nth-child(4n + 1):nth-last-child(-n + 3),
+      .team-card:nth-child(odd):last-child {
+        grid-column: auto;
+        display: flex;
+        min-height: 0;
+        border-width: 2px;
+        border-color: var(--navy);
+        box-shadow: 0 14px 34px rgba(7, 29, 60, .15);
+      }
+      .team-portrait,
+      .portrait-placeholder { height: 300px; min-height: 300px; }
+      .team-info { padding: 18px 20px 22px; }
+      .team-card h3 { margin-top: 6px; font-size: 2rem; }
+      .team-info p { font-size: 1rem; }
+      .commitment-inner { padding-left: 20px; padding-right: 20px; }
+      .site-header-inner {
+        min-height: 112px;
+        padding: 10px 12px;
+        grid-template-columns: 82px minmax(0, 182px) 40px;
+        gap: 12px;
+      }
+      .brand-link img { width: 82px; height: 82px; }
+      .nav-toggle { width: 40px; height: 42px; }
+      .nav-links { max-height: calc(100vh - 112px); padding-left: 20px; padding-right: 20px; }
+      .dog-tags-cta { width: 182px; }
+      .footer-main { grid-template-columns: 1fr; gap: 0; padding: 46px 24px 54px; }
+      .footer-seal { width: 154px; height: 154px; margin-bottom: 10px; }
+      .footer-org-name { margin-bottom: 20px; font-size: 1.38rem; }
+      .footer-intro p { font-size: 1rem; line-height: 1.5; }
+      .footer-left-meta { margin-top: 24px; }
+      .footer-ids { font-size: 1rem; }
+      .footer-candid { margin-top: 18px; }
+      .footer-contact { margin-top: 46px; padding-top: 42px; border-top: 1px solid rgba(255,255,255,.18); }
+      .footer-contact h2 { margin-bottom: 25px; font-size: 1.85rem; }
+      .footer-contact p { font-size: 1rem; }
+      .footer-social { margin-top: 25px; }
+      .footer-bottom-inner { padding: 24px; font-size: .92rem; }
+      .profile-shell { padding: 22px 20px 58px; }
+      .profile-toolbar { align-items: flex-start; margin-bottom: 30px; }
+      .back-button { padding-top: 10px; }
+      .team-nav { display: grid; grid-template-columns: 42px 42px; gap: 7px; }
+      .team-position { grid-column: 1 / -1; grid-row: 2; min-width: 0; }
+      .team-nav-button { width: 42px; justify-content: center; padding: 8px; }
+      .team-nav-button .nav-label { display: none; }
+      .profile-photo { min-height: 340px; }
+      .profile-photo .team-portrait { height: 340px; }
+      .profile-body { padding-left: 20px; padding-right: 20px; }
+      .profile-aside { grid-template-columns: 1fr; }
+      .profile-cta-inner { padding: 56px 20px; flex-direction: column; align-items: flex-start; }
+      .profile-gift-levels { min-width: 0; width: 100%; }
+      .profile-cta .button { width: 100%; }
+    }
+    @media (max-width: 360px) {
+      html { scroll-padding-top: 100px; }
+      .site-header-inner {
+        min-height: 100px;
+        padding-left: 8px;
+        padding-right: 8px;
+        grid-template-columns: 70px minmax(0, 164px) 38px;
+        gap: 8px;
+      }
+      .brand-link img { width: 70px; height: 70px; }
+      .dog-tags-cta { width: 164px; }
+      .nav-toggle { width: 38px; }
+      .nav-links { max-height: calc(100vh - 100px); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <main id="landing" class="view">
+    <header class="site-header">
+      <div class="site-header-inner">
+        <a class="brand-link" href="https://www.vetstovetsunited.org/" aria-label="Vets To Vets United home">
+          <img src="images/img-01.png" alt="Vets To Vets United" />
+        </a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="landing-nav" aria-label="Open navigation menu"><span class="nav-toggle-lines" aria-hidden="true"></span></button>
+        <nav class="primary-nav" id="landing-nav" aria-label="Main navigation">
+          <div class="nav-links">
+            <a href="https://www.vetstovetsunited.org/what-we-do">About Us</a>
+            <a href="https://www.vetstovetsunited.org/enrollment">Our Program</a>
+            <a href="https://www.vetstovetsunited.org/ways-to-give">Get Involved</a>
+            <a href="https://www.vetstovetsunited.org/news-announcements">News &amp; Events</a>
+            <a href="https://www.vetstovetsunited.org/contact">Contact Us</a>
+            <a class="login-link" href="https://www.vetstovetsunited.org"><span class="login-link-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 12a4.25 4.25 0 1 0 0-8.5 4.25 4.25 0 0 0 0 8.5Zm-7.25 8.5c.5-4 3.28-6.5 7.25-6.5s6.75 2.5 7.25 6.5H4.75Z"/></svg></span><span>Log In</span></a>
+          </div>
+          <a class="dog-tags-cta" href="#teams" aria-label="Dog Tags — sponsor a team">
+            <img src="images/img-02.png" alt="Dog Tags — Sponsor a Team" />
+          </a>
+        </nav>
+      </div>
+    </header>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <div class="program-mark">The Dog Tags monthly giving program</div>
+        <h1 id="hero-title">Stand beside a veteran—and the dog beside them.</h1>
+        <p class="hero-lede">Adopt a veteran-and-dog team with a recurring monthly gift. Your steady support helps Vets To Vets United sustain the care, training, and connection behind every partnership.</p>
+        <div class="actions">
+          <a class="button" href="?team=1" data-open-team="1">Sponsor a Team <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="button ghost" href="#how-it-works">How Dog Tags works</a>
+        </div>
+      </div>
+      <figure class="tag-figure" aria-label="The two Dog Tags campaign designs hanging together on a ball chain">
+        <svg class="chain-layer chain-behind" viewBox="0 0 560 588" aria-hidden="true">
+          <path d="M374 179 C397 175 414 155 432 127 C456 90 476 36 490 -18" />
+        </svg>
+        <div class="dog-tag male"><img src="images/img-03.jpg" alt="Dog tag front featuring a male veteran kneeling with his dog" /></div>
+        <svg class="chain-layer chain-between" viewBox="0 0 560 588" aria-hidden="true">
+          <path d="M196 179 C228 188 251 198 281 200 C319 202 350 188 374 179" />
+        </svg>
+        <div class="dog-tag female"><img src="images/img-04.jpg" alt="Dog tag front featuring a female veteran kneeling with her dog" /></div>
+        <svg class="chain-layer chain-front" viewBox="0 0 560 588" aria-hidden="true">
+          <path d="M70 -18 C84 48 116 121 165 154 C177 163 188 173 196 179" />
+        </svg>
+      </figure>
+    </section>
+
+    <section class="impact-strip" aria-label="Program overview">
+      <div class="impact-item"><div class="impact-number">7</div><div class="impact-label">teams to meet</div></div>
+      <div class="impact-item"><div class="impact-number">$1,000</div><div class="impact-label">monthly goal for each team</div></div>
+      <div class="impact-item"><div class="impact-number">2</div><div class="impact-label">lives moving forward together</div></div>
+    </section>
+
+    <section id="how-it-works" class="section" aria-labelledby="how-title">
+      <header class="section-head">
+        <p class="eyebrow">A simple way to stay with the mission</p>
+        <h2 id="how-title">How Dog Tags works</h2>
+        <p>Each tag opens the door to a real team’s story. Choose the partnership that speaks to you, make a monthly commitment, and follow their journey.</p>
+      </header>
+      <div class="steps">
+        <article class="step">
+          <div class="step-no">01</div>
+          <h3>Learn about the teams</h3>
+          <p>Read the veteran’s story, meet their dog, and learn what makes their partnership meaningful.</p>
+        </article>
+        <article class="step">
+          <div class="step-no">02</div>
+          <h3>Adopt their journey</h3>
+          <p>Choose that team when you set up your recurring monthly gift through the Dog Tags donation form.</p>
+        </article>
+        <article class="step">
+          <div class="step-no">03</div>
+          <h3>Watch support grow</h3>
+          <p>Each team page shows current monthly support toward its $1,000 goal.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="teams" class="teams-wrap" aria-labelledby="teams-title">
+      <div class="section">
+        <header class="section-head">
+          <p class="eyebrow">Seven partnerships. Seven stories.</p>
+          <h2 id="teams-title">Meet the teams</h2>
+          <p>Select a team thumbnail to open their portrait, story, and monthly support page. Use Previous and Next to move through all seven partnerships.</p>
+        </header>
+        <div class="team-grid" id="team-grid"></div>
+      </div>
+    </section>
+
+    <section class="commitment" aria-labelledby="steady-title">
+      <div class="commitment-inner">
+        <div>
+          <p class="eyebrow">Why monthly matters</p>
+          <h2 id="steady-title">Steady support builds lasting partnerships.</h2>
+          <p>Recurring gifts create a dependable foundation for the work surrounding each veteran-and-dog team. One decision today becomes support they can count on month after month.</p>
+          <p class="support-note">Monthly giving is processed securely through Network for Good.</p>
+        </div>
+        <blockquote>Carry the tag.<br>Follow the team.<br>Stay for the journey.</blockquote>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="footer-main">
+        <div class="footer-left">
+          <section class="footer-intro">
+            <img class="footer-seal" src="images/img-05.jpg" alt="Vets To Vets United seal" />
+            <h2 class="footer-org-name">Vets To Vets United, Inc.</h2>
+            <p>A 501(c)(3) nonprofit organization serving the Triangle area of North Carolina and beyond.</p>
+          </section>
+          <div class="footer-left-meta">
+            <div class="footer-ids" aria-label="Organization identifiers">
+              <span><strong>EIN:</strong> 35-2434695</span>
+              <span><strong>CFC:</strong> #72785</span>
+              <span><strong>SECC:</strong> #4090</span>
+            </div>
+            <a class="footer-candid" href="https://app.candid.org/profile/9204114/vets-to-vets-united-inc-35-2434695" target="_blank" rel="noopener" aria-label="View Vets To Vets United's Candid profile">
+              <img src="images/img-06.jpg" alt="Candid Platinum Transparency 2026" />
+            </a>
+          </div>
+        </div>
+        <section class="footer-contact">
+          <h2>Contact Us</h2>
+          <p class="address"><strong>Mailing Address:</strong>732 Ninth Street Box #595<br />Durham, NC 27705</p>
+          <p>Office: 919-683-1360<br />Mobile: 919-452-8745<br />Email: <a href="mailto:tmorris@vetstovetsunited.org">tmorris@vetstovetsunited.org</a></p>
+          <a class="footer-contact-button" href="https://www.vetstovetsunited.org/contact">Contact Us</a>
+          <nav class="footer-social" aria-label="Social media">
+            <a href="https://www.facebook.com/VetsToVetsUnitedInc/" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h3V4.5c-.5-.1-2.2-.2-4-.2-3.9 0-6.5 2.3-6.5 6.7v3.7H3v4h3.5V24h4.3v-5.3h3.6l.6-4h-4.2v-3.3C10.8 10.2 11.1 8 14 8Z"/></svg></a>
+            <a href="https://www.linkedin.com/company/vets-to-vets-united-inc" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.7 3A2.4 2.4 0 1 1 4.7 7.8 2.4 2.4 0 0 1 4.7 3ZM2.6 9.5h4.2V23H2.6V9.5Zm6.8 0h4v1.8h.1c.6-1.1 2-2.3 4.1-2.3 4.4 0 5.2 2.9 5.2 6.7V23h-4.2v-6.5c0-1.5 0-3.5-2.2-3.5s-2.5 1.7-2.5 3.4V23H9.4V9.5Z"/></svg></a>
+            <a href="http://www.twitter.com/vetsto_vets" aria-label="X"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 2H22l-6.8 7.8L23 22h-6.1l-4.8-6.3L6.6 22H3.5l7.1-8.1L3.1 2h6.3l4.3 5.7L18.9 2Zm-1.1 17.8h1.7L8.5 4.1H6.7l11.1 15.7Z"/></svg></a>
+            <a href="https://www.instagram.com/vetstovets/" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.2 2h9.6A5.2 5.2 0 0 1 22 7.2v9.6a5.2 5.2 0 0 1-5.2 5.2H7.2A5.2 5.2 0 0 1 2 16.8V7.2A5.2 5.2 0 0 1 7.2 2Zm-.2 2A3 3 0 0 0 4 7v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7Zm10.3 1.5a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/></svg></a>
+            <a href="https://www.threads.com/@vetstovets" aria-label="Threads"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.1 2C6.2 2 2.7 5.9 2.7 12c0 6.2 3.6 10 9.6 10 5.4 0 9-3.1 9-8.2 0-4.4-2.6-6.9-6.3-7.2-.5-1.3-1.4-2.3-2.8-2.8-2.1-.8-4.4-.2-5.7 1.5l1.6 1.2c.8-1 2.2-1.4 3.4-.9.7.3 1.2.7 1.5 1.2-3.9.4-6.1 2.2-6.1 5 0 2.5 1.9 4.3 4.6 4.3 3.2 0 5.3-2.2 5.3-5.7v-1.1c1.7.6 2.6 2.1 2.6 4.4 0 3.8-2.5 6.2-7.1 6.2-4.8 0-7.6-2.9-7.6-7.9 0-4.9 2.7-8 7.4-8 3.8 0 6.4 2 7 5.3l2-.4C20.3 4.6 16.9 2 12.1 2Zm-.5 12.2c-1.5 0-2.5-.9-2.5-2.2 0-1.7 1.5-2.8 4.7-3.1.1.4.1.9.1 1.4 0 2.5-.8 3.9-2.3 3.9Z"/></svg></a>
+          </nav>
+        </section>
+      </div>
+      <div class="footer-bottom"><div class="footer-bottom-inner"><div>© 2026 by Vets To Vets United, Inc.</div><div>Powered and secured by Wix</div></div></div>
+    </footer>
+  </main>
+
+  <main id="profile" class="view" role="dialog" aria-modal="true" aria-labelledby="profile-title" hidden>
+    <header class="site-header">
+      <div class="site-header-inner">
+        <a class="brand-link" href="https://www.vetstovetsunited.org/" aria-label="Vets To Vets United home">
+          <img src="images/img-07.png" alt="Vets To Vets United" />
+        </a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="profile-nav" aria-label="Open navigation menu"><span class="nav-toggle-lines" aria-hidden="true"></span></button>
+        <nav class="primary-nav" id="profile-nav" aria-label="Main navigation">
+          <div class="nav-links">
+            <a href="https://www.vetstovetsunited.org/what-we-do">About Us</a>
+            <a href="https://www.vetstovetsunited.org/enrollment">Our Program</a>
+            <a href="https://www.vetstovetsunited.org/ways-to-give">Get Involved</a>
+            <a href="https://www.vetstovetsunited.org/news-announcements">News &amp; Events</a>
+            <a href="https://www.vetstovetsunited.org/contact">Contact Us</a>
+            <a class="login-link" href="https://www.vetstovetsunited.org"><span class="login-link-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 12a4.25 4.25 0 1 0 0-8.5 4.25 4.25 0 0 0 0 8.5Zm-7.25 8.5c.5-4 3.28-6.5 7.25-6.5s6.75 2.5 7.25 6.5H4.75Z"/></svg></span><span>Log In</span></a>
+          </div>
+          <a class="dog-tags-cta" href="#teams" aria-label="Dog Tags — sponsor a team">
+            <img src="images/img-08.png" alt="Dog Tags — Sponsor a Team" />
+          </a>
+        </nav>
+      </div>
+    </header>
+    <section class="profile-hero"><div class="profile-shell">
+      <div class="profile-toolbar">
+        <a class="back-button" id="close-profile" href="#teams"><span aria-hidden="true">←</span> Back to all teams</a>
+        <nav class="team-nav" aria-label="Browse team stories">
+          <a class="team-nav-button" id="previous-team" href="?team=7" aria-label="Previous team"><span aria-hidden="true">←</span><span class="nav-label"> Previous</span></a>
+          <span class="team-position" id="team-position">Team 1 of 7</span>
+          <a class="team-nav-button" id="next-team" href="?team=2" aria-label="Next team"><span class="nav-label">Next </span><span aria-hidden="true">→</span></a>
+        </nav>
+      </div>
+      <div class="profile-grid">
+        <div class="portrait-placeholder profile-photo" id="profile-photo" aria-label="Team portrait"><svg viewBox="0 0 120 120" aria-hidden="true"><path fill="currentColor" d="M47 54c-7-5-11-13-11-23C36 14 47 3 61 3s25 11 25 28c0 10-4 19-12 24 17 6 29 20 32 39H16c3-20 14-34 31-40Zm39 9c13-10 31-2 31 14 0 14-13 24-31 32-18-8-31-18-31-32 0-12 11-20 22-17l9 3Z"/></svg><span class="portrait-note">Team portrait</span></div>
+        <div class="profile-copy"><div class="team-index" id="profile-index"></div><h1 id="profile-title"></h1><p class="intro" id="profile-detail"></p></div>
+      </div>
+    </div></section>
+    <section class="profile-cta" aria-labelledby="profile-cta-title"><div class="profile-cta-inner"><div><p class="eyebrow">Sponsor this team</p><h2 id="profile-cta-title"></h2><p id="profile-cta-copy">Help this team reach its $1,000 monthly goal through the secure Network for Good campaign form.</p></div><div class="profile-gift-levels"><a class="button" id="profile-sponsor-link" href="#" target="_blank" rel="noopener">Sponsor this team <span class="arrow" aria-hidden="true">→</span></a></div></div></section>
+    <section class="profile-body"><div class="story-layout">
+      <article class="story-copy"><p class="eyebrow">Their story</p><h2>A partnership built one day at a time</h2><div class="copy-placeholder" id="profile-story" aria-hidden="true"><div class="copy-line"></div><div class="copy-line"></div><div class="copy-line"></div><div class="copy-line"></div><div class="copy-line"></div></div><p class="copy-caption" id="profile-story-caption">Team story</p></article>
+      <aside class="profile-aside"><div class="fact-block"><h3>Team snapshot</h3><dl><div class="fact-row"><dt>Veteran</dt><dd id="fact-veteran"></dd></div><div class="fact-row"><dt>Dog</dt><dd id="fact-dog"></dd></div><div class="fact-row"><dt>Breed</dt><dd id="fact-breed"></dd></div><div class="fact-row"><dt>Age</dt><dd id="fact-age"></dd></div></dl></div><div class="meter-block"><h3>Monthly support</h3><p class="meter-status">$0 monthly · $1,000 goal</p><div class="meter-track" role="img" aria-label="$0 in monthly support toward the $1,000 goal"><div class="meter-fill"></div></div></div></aside>
+    </div></section>
+    <footer class="site-footer">
+      <div class="footer-main">
+        <div class="footer-left">
+          <section class="footer-intro">
+            <img class="footer-seal" src="images/img-09.jpg" alt="Vets To Vets United seal" />
+            <h2 class="footer-org-name">Vets To Vets United, Inc.</h2>
+            <p>A 501(c)(3) nonprofit organization serving the Triangle area of North Carolina and beyond.</p>
+          </section>
+          <div class="footer-left-meta">
+            <div class="footer-ids" aria-label="Organization identifiers">
+              <span><strong>EIN:</strong> 35-2434695</span>
+              <span><strong>CFC:</strong> #72785</span>
+              <span><strong>SECC:</strong> #4090</span>
+            </div>
+            <a class="footer-candid" href="https://app.candid.org/profile/9204114/vets-to-vets-united-inc-35-2434695" target="_blank" rel="noopener" aria-label="View Vets To Vets United's Candid profile">
+              <img src="images/img-10.jpg" alt="Candid Platinum Transparency 2026" />
+            </a>
+          </div>
+        </div>
+        <section class="footer-contact">
+          <h2>Contact Us</h2>
+          <p class="address"><strong>Mailing Address:</strong>732 Ninth Street Box #595<br />Durham, NC 27705</p>
+          <p>Office: 919-683-1360<br />Mobile: 919-452-8745<br />Email: <a href="mailto:tmorris@vetstovetsunited.org">tmorris@vetstovetsunited.org</a></p>
+          <a class="footer-contact-button" href="https://www.vetstovetsunited.org/contact">Contact Us</a>
+          <nav class="footer-social" aria-label="Social media">
+            <a href="https://www.facebook.com/VetsToVetsUnitedInc/" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h3V4.5c-.5-.1-2.2-.2-4-.2-3.9 0-6.5 2.3-6.5 6.7v3.7H3v4h3.5V24h4.3v-5.3h3.6l.6-4h-4.2v-3.3C10.8 10.2 11.1 8 14 8Z"/></svg></a>
+            <a href="https://www.linkedin.com/company/vets-to-vets-united-inc" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.7 3A2.4 2.4 0 1 1 4.7 7.8 2.4 2.4 0 0 1 4.7 3ZM2.6 9.5h4.2V23H2.6V9.5Zm6.8 0h4v1.8h.1c.6-1.1 2-2.3 4.1-2.3 4.4 0 5.2 2.9 5.2 6.7V23h-4.2v-6.5c0-1.5 0-3.5-2.2-3.5s-2.5 1.7-2.5 3.4V23H9.4V9.5Z"/></svg></a>
+            <a href="http://www.twitter.com/vetsto_vets" aria-label="X"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 2H22l-6.8 7.8L23 22h-6.1l-4.8-6.3L6.6 22H3.5l7.1-8.1L3.1 2h6.3l4.3 5.7L18.9 2Zm-1.1 17.8h1.7L8.5 4.1H6.7l11.1 15.7Z"/></svg></a>
+            <a href="https://www.instagram.com/vetstovets/" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.2 2h9.6A5.2 5.2 0 0 1 22 7.2v9.6a5.2 5.2 0 0 1-5.2 5.2H7.2A5.2 5.2 0 0 1 2 16.8V7.2A5.2 5.2 0 0 1 7.2 2Zm-.2 2A3 3 0 0 0 4 7v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7Zm10.3 1.5a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/></svg></a>
+            <a href="https://www.threads.com/@vetstovets" aria-label="Threads"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.1 2C6.2 2 2.7 5.9 2.7 12c0 6.2 3.6 10 9.6 10 5.4 0 9-3.1 9-8.2 0-4.4-2.6-6.9-6.3-7.2-.5-1.3-1.4-2.3-2.8-2.8-2.1-.8-4.4-.2-5.7 1.5l1.6 1.2c.8-1 2.2-1.4 3.4-.9.7.3 1.2.7 1.5 1.2-3.9.4-6.1 2.2-6.1 5 0 2.5 1.9 4.3 4.6 4.3 3.2 0 5.3-2.2 5.3-5.7v-1.1c1.7.6 2.6 2.1 2.6 4.4 0 3.8-2.5 6.2-7.1 6.2-4.8 0-7.6-2.9-7.6-7.9 0-4.9 2.7-8 7.4-8 3.8 0 6.4 2 7 5.3l2-.4C20.3 4.6 16.9 2 12.1 2Zm-.5 12.2c-1.5 0-2.5-.9-2.5-2.2 0-1.7 1.5-2.8 4.7-3.1.1.4.1.9.1 1.4 0 2.5-.8 3.9-2.3 3.9Z"/></svg></a>
+          </nav>
+        </section>
+      </div>
+      <div class="footer-bottom"><div class="footer-bottom-inner"><div>© 2026 by Vets To Vets United, Inc.</div><div>Powered and secured by Wix</div></div></div>
+    </footer>
+  </main>
+
+  <script>
+    (function () {
+      var grid = document.getElementById('team-grid');
+      var landing = document.getElementById('landing');
+      var profile = document.getElementById('profile');
+      var teams = [
+        {
+          veteran: 'Angela',
+          dog: 'Rosie',
+          detail: 'Rottweiler · 3 years',
+          donation: 'https://vetstovetsunited.networkforgood.com/projects/307197-dog-tags-sponsor-angela-rosie',
+          portrait: 'images/img-11.jpg',
+          story: [
+            "I served in the Army from 1998 to 2002 as a 55 Bravo in ammunition, two years at Fort Bragg and two years in Korea. I loved Korea. The country is beautiful, the people are so kind, and I was honored to serve. The Army was my brothers and sisters. My service ended after an accident that hurt my back and left me trapped in a tent. It was very traumatic. I'm 100% disabled now, and three concussions have taken a toll on my memory.",
+            "Before Rosie, I was a recluse. I stayed in the house and only shopped in the early morning or late at night, when the stores were empty, because I couldn't handle crowds. My kids went to the fair once and I parked myself in a small corner, hoping nobody would see me.",
+            "I'd signed up for Vets to Vets so long before that I'd forgotten about it. I almost went with another program, but they wanted me to leave home for 21 days and with family depending on me, I couldn't. Then Vets to Vets called. I knew what I needed: a companion to walk into a store with me, someone beside me so I'd have the confidence to step back out into the world. If this dog could walk with me, maybe I could rejoin society.",
+            "I met Rosie a year ago at a ballpark, where another veteran who couldn't keep her had brought her. She was 110 pounds, chained to the fence, wild. I'd never had a dog. It was like having a child for the first time, and you wonder, can I do this? They asked if I could take her home that night. I said yes. Let's just run with it. That first night she never barked or whined. She just went into her crate and settled, and we have not been separated since. She's calm as a cucumber. The sweetest dog ever.",
+            "Training isn't easy with my memory, so I write everything down, and my teammates have become my family. If I get something wrong, somebody always helps me understand what I missed. But when Rosie and I get it right, we're in sync and it's perfect. Our gait matches and I feel like we're one, like she's my right arm. She answers to me the way my kids do. I can see it in her eyes. She really hears me.",
+            "She had a heart murmur when I got her, so we took it easy at first, and with Dr. Terry's help we got through it. She went from 110 pounds to 98. Look at her now. We go running together now, short sprints, and I go shopping. I haven't taken her to the VA yet. The rooms are so small and I've never had her in a small room, so I'm working up my courage. She's supposed to go with me everywhere. That's what she's there for.",
+            "At home she nudges my hand while we watch TV, and with basketballs bouncing and kids running everywhere, Rosie just sits there, cool as can be.",
+            "I'm so proud of how far she's come, from that wild girl at the ballpark to the calm dog she is now. I'm grateful to this organization. Who knows what dog I would have picked on my own? They matched us perfectly. If you're reading this and thinking about giving, know what your gift does. It takes someone who hid in corners at the fair and gives her a reason to walk back out into the world. Please sponsor our team, and help more veterans find their Rosie."
+          ]
+        },
+        {
+          veteran: 'David',
+          dog: 'Mikey',
+          detail: 'Miniature Schnauzer · 2.5 years',
+          donation: 'https://vetstovetsunited.networkforgood.com/projects/307198-dog-tags-sponsor-david-mikey',
+          portrait: 'images/img-12.jpg',
+          story: [
+            "My name is David. I served eight and a half years in the Army with the 101st Airborne, stationed at Fort Campbell. I went to Desert Storm, Honduras, Panama, Germany, Korea, fourteen countries in all. I was a combat soldier and I survived, and I'm here. I'm thankful for that every day.",
+            "What I didn't understand at the time was that I was suffering through post-traumatic stress disorder. I was living in depression and anxiety. I'm also a cancer survivor, nine years cancer free as of my last checkup. There were episodes when I wanted to commit suicide. I thought I would be better off dead. That is a hard thing to say out loud, but it is the truth of where I was.",
+            "Growing up outside Philadelphia I always had a dog. After my wife and I moved to North Carolina eleven years ago, I kept telling her I needed a dog, and she kept saying not right now. Then one day at the VA I saw a gentleman with a dog wearing a vest, and he told me it was his service dog. It got me thinking. I'm overweight and I have diabetes, and I figured if I had a dog I would have no choice but to walk, and the walking would help the depression too.",
+            "I asked my doctor what it would take to get a service dog. The VA wouldn't match me with one, but she wrote me a letter, and the gentleman at the VA gave me the information that put me in touch with Dr. Morris, who founded Vets To Vets United. I went on the waiting list for about two years, and honestly I had stopped thinking about it. In the meantime I remembered a Giant Schnauzer from my service days. I decided I wanted a smaller dog, something my family could handle if I wasn't there, so I bought a Miniature Schnauzer and named him Mikey. Maybe a week later they called and said to bring him to the Civitan Club for an evaluation. He passed, and we've been in the program ever since.",
+            "That was about two years ago. I'll never leave. The group has become family, the veterans and the dogs alike. I never knew there was this much support for veterans. If I didn't have Mikey, would I have ever known? It opened my life back up. I am so thankful, and I can't say it enough.",
+            "The program takes care of all of Mikey's medical bills, which matters because having a dog today is extremely expensive, and they matched us with a veterinarian for the duration of his life. I had always owned dogs, but I had never had a dog trained to perform for me. Watching him learn was inspiring. It was a true life event.",
+            "I can tell you Mikey has brought the two of us back together. She was hesitant about getting a dog at first. Now she can't get enough of him. He opened our family back up.",
+            "My days look nothing like they used to. Mikey and I are up at 5:30 every morning and out the door for our walk, and I'm losing weight. I stay on my medication and I watch what I eat, because I feed him and I want him to have a good life, and that makes me pay attention to how I feed myself. I'm out volunteering in the community. We did the 5K walk with all those people around, and I could be there because of him. I've learned that he reacts off of me, so I've learned to control myself, and I don't go into those panics the way I used to. When I go to the doctor now, they want to see Mikey more than they want to see me.",
+            "This program is something I would recommend to any veteran like myself. If you're deciding whether to sponsor our team, know that it was more than beneficial to me, and I'm wearing it till the end."
+          ]
+        },
+        {
+          veteran: 'Josh',
+          dog: 'Bella',
+          detail: 'Pit Bull · 3 years',
+          donation: 'https://vetstovetsunited.networkforgood.com/projects/307416-dog-tags-sponsor-josh-bella',
+          portrait: 'images/img-13.jpg',
+          story: [
+            "Josh served in the Army for almost a year as a 92A Automated Logistics Specialist, completing basic training at Fort Jackson, South Carolina, followed by AIT at Fort Lee, Virginia. An injury during basic training followed him into AIT, and after the Army reviewed his childhood medical records and found a narcolepsy diagnosis, he received a medical discharge. Along the way, he saw things that shook him — things you wouldn't expect to see unless you'd been on a battlefield.",
+            "Before Bella, Josh kept to himself. He didn't trust people; crowds and groups of people made him uneasy. Nightmares and anxiety made it hard to keep a job or make friends. \"I needed something to ground me, and give me a purpose,\" he says. \"I wanted to be able to be a people person again.\" He applied to the program knowing something had to change: \"I knew that if something didn't change, then I would not be a productive person in society.\"",
+            "Meeting Bella was, in his words, \"love and peacefulness at first sight.\" She ignored everyone else in the room and came straight to him, like she knew he was her person. \"She gave me hope and peace like I've never felt.\"",
+            "Training together has been challenging. Bella eats a hydrolyzed protein diet, so the team can't train with high-value treats like the other teams — it takes her a little longer to get a handle on each skill. One skill they've worked hard on: Bella retrieving Josh's medication on a daily schedule. Practicing with an empty bottle in a bag, she'd just shake it and chew on it. \"She was being very rotten,\" Josh laughs. Then one day it clicked. He was hurting badly, about thirty minutes before her alarm, and he told her his feet hurt and he could really use his medicine. She went into his office and brought him the medicine bag. \"That just made my day.\" They've put the real medication in the bag ever since.",
+            "What surprised Josh most is her personality. \"She is such a happy dog. She loves everyone!\" Bella has made him a social person again — she lights up the room wherever she goes, and her ears tell you exactly what's on her mind.",
+            "The difference is concrete now. Josh can go out in public knowing Bella is there to keep him grounded and safe. She can tell when he's having a rough day: she'll have him lie down or sit against a wall so she can put pressure on his chest until he calms down, or she'll have him put his arm around her and hold her until he feels better. Then, he says, she wants to play and have fun. \"I am able to go out in public and talk to people without having to worry about if I'm going to have a panic attack,\" he says. \"She keeps me at a steady feeling on the inside.\"",
+            "\"This program is a chance for two lost souls to find a connection and a reason to live,\" Josh says. \"Without each other we might not have a chance for tomorrow. You don't have to be a combat veteran to get help. Not all wounds are visible. But this program helps. It's truly a great program.\"",
+            "To anyone deciding whether to sponsor their team: \"Your sponsorship would go a long way for us,\" Josh says. \"Bella has to take an allergy pill every morning and an incontinence pill twice a day — forever — plus her prescription dog food and treats. For such a cute, innocent-looking baby, she is a high maintenance girl.\""
+          ]
+        },
+        {
+          veteran: 'Katrina',
+          dog: 'Apollo',
+          detail: 'Golden Doodle · 2 years',
+          donation: 'https://vetstovetsunited.networkforgood.com/projects/307196-dog-tags-sponsor-katrina-apollo',
+          portrait: 'images/img-14.jpg',
+          story: [
+            "My name is Katrina. I live in Sanford, North Carolina. I was born in Florida and raised in New York for ten years before our family came back to my mother's home town Hope Mills NC. I served eight years in the United States Air Force, active duty and reserve. On active duty I was a power production specialist, and my first station was Alaska, where we maintained the aircraft arresting barrier, the cables that catch the tail hooks on incoming jets, and the backup generators for the critical buildings like the hospital.",
+            "As a reservist out of Charleston, South Carolina, I worked on C-141 jet engines. They made me the lead, the crew chief, on one of my engines, and we got it out ahead of crews that had started before us. I joined the service at nineteen because I wanted to be independent. I come from a family of nine kids, and I wanted my own job and my own space where nobody was telling me what to do. Which is funny, because then you join the military and they tell you exactly what to do and you are surrounded by people all day long. At nineteen, what do you know.",
+            "My husband and I have had dogs ever since we married in 1977, including one up in Alaska. I have PTSD with a nervous condition, and my anxiety runs super high. I wanted a service dog because I wanted someone beside me, someone I could walk with and pet, because you get those great endorphins when you pet them. I call Apollo somebody. I don't call him a dog. He's my son. He ain't no dog.",
+            "What I didn't expect was that I would need a dog for mobility and balance, because I fall a lot. With his harness, Apollo keeps me steady. I tried rollers and walkers and all kinds of things, and nothing kept me stable. I fell off a walker, if you can believe that. It took three different harnesses before we found the one that works. I have been in the program three years, and we went through three or four dogs before Apollo. There was a Great Dane that would just pull me down, and a little Goldendoodle that was too small to steady me, and one that just didn't have the right temperament. Then Dr. Morris helped me find Apollo and rescue him. I got him on June third, which was my mother's birthday. He was the right one. I just knew.",
+            "Training him taught me focus and discipline, because I am all over the place all the time. Learning the commands the right way, being consistent, it took my mind off what my own body and brain were doing and put it on him. I wanted us to be the team that shines, for me and my husband Marco and Dr. Morris. She is the most amazing person I have ever met, and something inside her just touched me. She made me want to train right and do it right. She also helped me reestablish my Christianity, because you could tell she was a believer, and I wanted to be a stronger one. Before Apollo I was kind of like a hermit. I didn't leave my house. I dreaded a doctor appointment. Now I am out in the world. If things start getting tense, I am not alone anymore. I have someone there that has got my back.",
+            "What surprised me most is what he does on his own. He sits and puts his head on my lap. At night he lays his head across my chest, because my nightmares were bad, every single night, and he has cut them down to about a third of what they were. One night I cried out in a dream and he put his paw right on my mouth. Nobody trained him to do that. I didn't teach him. He just did it. Our Pet Partner exam is on the twenty-first, and we are going to nail it.",
+            "This program is giving me a life. I don't want to commit suicide anymore. It's not an option anymore. Apollo ranks up there with my marriage and my children. When the flashbacks start in broad daylight, he is right there, like, hey Mom, it's okay, you're cool, I got you, I got your back. I have been through a lot of programs in the military and as a veteran, self-improvement programs and rehab programs, and I don't need those anymore. I got him.",
+            "When you get into this program and you get this rescue dog, he rescues you. You rescue him, and he turns right around and rescues me. I cannot panic in my own house now. I want to go out. I want to smell the air and smell the grass. I used to love the outdoors, and he has given that back to me. Dr. Morris connected us with Animal Kingdom Veterinary Hospital in Cary, NC, and Carrie, and they cover Apollo's costs, the Heartgard and everything. Somebody just said, yeah, come on, I will take you in, because they believe in us. And the camaraderie with the other veterans training their rescue dogs, it is like family. It is like being in the military with your comrade right beside you again.",
+            "If you are deciding whether to sponsor our team, I would say you would be getting one of the best deals out there. He is so worth it, and he makes my life a life worth living."
+          ]
+        },
+        {
+          veteran: 'Linda',
+          dog: 'Jake',
+          detail: 'Canis Panther · 4 years',
+          donation: 'https://vetstovetsunited.networkforgood.com/projects/307200-dog-tags-sponsor-linda-jake',
+          portrait: 'images/img-15.jpg',
+          story: [
+            "My name is Linda. I'm originally from Buffalo, New York, and now live near Brier Creek, North Carolina. I served six years in the Navy as a cardiopulmonary technologist in the medical field. My work included cardiac catheterization lab duties, setting up monitoring equipment for cardiac surgery, performing pulmonary function testing, and serving on the cardiac arrest team.",
+            "I joined the Navy to see the world, but most of my time was spent in Portsmouth, Virginia, and at the hospital. The training was excellent, but my experience was difficult. There were very few women in my field, and the environment was not particularly welcoming. I had always been a high achiever, but over time, I began to take a back seat in my own life.",
+            "I have always loved animals, especially dogs. Dogs don't care whether you are a leader or a follower, whether you are strong or struggling. They accept you as you are. There is something extraordinary about being loved without having to explain yourself.",
+            "I found Jake running the streets in a rural North Carolina town. He was starving, had been beaten, and was terrified of the world, especially men. I brought him home, and for the next two years, I worked patiently to help him feel safe. His fear was so severe that my neighbor across the street couldn't approach him for an entire year.",
+            "As I watched Jake struggle, I recognized something familiar. I believe we both carried our own forms of trauma. In helping Jake learn that he was safe, I began to understand how much we could heal together.",
+            "I had always admired people with service dogs and wished I could feel that same security. I submitted applications to several organizations, then forgot about them. Two years later, Vets to Vets United called unexpectedly. By then, Jake was already family. What I didn't realize was that Jake was exactly the dog I needed.",
+            "Since beginning training in January, Jake has made remarkable progress. The frightened dog who once trusted no one now visits the dog park, plays with dogs of all sizes, and walks beside me past squirrels without chasing. But it's about much more than training. Vets to Vets United gave us a community of people who understand one another without requiring explanations. Dr. Morris greets everyone with \"Hi, family,\" and that is exactly what it feels like.",
+            "One of the most remarkable things about Jake is his gentleness. He is a Canis Panther, a powerful dog who might intimidate at first glance. But underneath is an incredibly kind soul. I have never raised my hand to him. Because of Jake, I feel safer and more confident. I can walk down dark streets. I get more exercise, spend more time outdoors, and participate in life instead of avoiding it. I used to dread the grocery store and Costco. Now, with Jake beside me, I feel grounded. People stop to admire him, and suddenly conversations happen. I feel connected again.",
+            "A service dog is there through the ordinary moments as well as the hard ones. With Jake, I can be out in the world and still feel at home. He has become my companion, my best friend, and my motivation. And yes, he has cost me more money, because his food is expensive and he eats a lot! He is handsome, brilliant, and worth every penny.",
+            "Jake accompanies me everywhere, including elevators and escalators, and comes home exhausted from a full day of being my partner. A service dog can be the difference between staying home and venturing out, between isolation and connection. Behind that dog is a program that makes the partnership possible. Vets to Vets United brings veterans and dogs together and helps both become their best selves. It gives dogs a chance to thrive, and it gives veterans love, a partner, and a community where we feel we belong.",
+            "I served my country for six years. I never imagined that a frightened, starving dog I found on the streets would become such an important part of my healing. Vets to Vets means everything to me. It has replaced my darkness with sunshine. If you are considering sponsoring our team, please do! Jake and I will make you proud. While the government supports veterans with health care, medications, and wheelchairs, it does not provide service dogs. Most veterans who could benefit can't afford one. Vets to Vets is a Godsend! Please support us."
+          ]
+        },
+        {
+          veteran: 'Lorna',
+          dog: 'Bentley',
+          detail: 'Terrier Mix · 4 years',
+          donation: 'https://vetstovetsunited.networkforgood.com/projects/307310-dog-tags-sponsor-lorna-bentley',
+          portrait: 'images/img-16.jpg',
+          story: [
+            "My name is Lorna. I served nine years in the U.S. Army, and then in the South Carolina and North Carolina National Guard. I went in as a cook, and when I joined the Guard I cross-trained to military police. I was stationed all over the country, and I served during the Desert Storm era. I did actually serve during the invasion of Panama at Ft. Clayton, Panama. I enjoyed my time in service, although there are some things that happened that still haunt me.",
+            "Before Bentley, I had a Chihuahua I got when she was four weeks old. I had her for fourteen years, and she died about three years ago. That is when I realized how much help she had really been to me with the nightmares and everything I have going on. After she was gone, life got really rough. The nightmares were ongoing. I avoided going to bed, and at times I felt like I didn't want to wake up. I have terrible social anxiety, and I couldn't go to the store. Going out in public just wasn't something I could do.",
+            "I first applied to a different organization out of Wilmington. I went through their whole process. They took pictures and videos of my home to see my setup, and then I got denied. When that happened I went into another depression. Somebody told me to try Vets To Vets United, so I went online and applied. Within about two weeks somebody called me and emailed a packet, and a couple of months later they told me I had been approved. I had really given up on getting approved for a service dog, so that call meant everything.",
+            "I wanted a smaller dog, and it was hard to find one compatible with me, so four or five months went by. Then I got a call from Dr. Morris. She told me a volunteer working at a veterinary clinic in Fayetteville knew of a small dog, and she wanted me to go visit with him. So I did, and it was Bentley. We hit it off from the beginning. He was very shy and reserved, and he acts a lot like me.",
+            "We have been in the program since February, and we've run into some problems. Bentley tested heartworm positive, and we missed a lot of training time because of it. He couldn't do the training while he was receiving treatment because they didn't want his heart rate to get up. He also has GI problems, so he has to eat a special kind of food, and he goes through bouts of diarrhea and vomiting. He's a kind of sickly dog, but he's a very good dog, and I love him.",
+            "He is the calmest dog I have ever had. Nothing fazes him. When Dr. Morris did his evaluation down in Fayetteville, she dropped a metal bowl on the floor, and he just gradually looked around. It didn't startle him at all. He doesn't get excited when he sees other dogs, pulling and wanting to run off the way some dogs do. He doesn't do any of that.",
+            "What is different now is that I look forward to waking up every day. The nightmares have gotten far fewer. He'll wake me up if I start having one. He'll jump on the side of the bed or start whining, and that gets my attention. He hasn't even been trained to do that yet. We just haven't gotten that far into the training, but that's what he does. And now I'll get up and go out. I used to avoid going anywhere, even to the doctor. Now I don't mind going out, and I take him, and he kind of distracts me from the fears I have about going out in public. I absolutely love going to the classes and being with the other veterans and dogs.",
+            "What I would want people to understand is how much work Dr. Morris puts into making this program a success, and all of her volunteers who help her. People would have no idea what they do behind the scenes. Whenever Bentley's sick, they call and check in to see how we're doing. It's pretty much constant communication, and they don't have to do that, but they do. Vets To Vets United takes care of the vet bills, and I keep Bentley's care at Gate City Animal Hospital in Greensboro.",
+            "We appreciate everything that everybody does to help with this program. I don't know if I would have been able to make it on my own, getting a dog and trying to get him trained by myself. I've learned a lot in the time we've been in it, and I think it's a really great program. For any support we could get, we greatly appreciate it."
+          ]
+        },
+        {
+          veteran: 'Steve',
+          dog: 'Big AL',
+          detail: 'Cane Corso · 3 years',
+          donation: 'https://vetstovetsunited.networkforgood.com/projects/307307-dog-tags-sponsor-steve-big-al',
+          portrait: 'images/img-17.jpg',
+          story: [
+            "I enlisted in the Marine Corps two days after the first two Marines were killed in Beirut. During boot camp, the barracks bombing killed 250 more. I wanted to be trained by the best, and I don't regret one moment. Leaving was the hard part. The Corps isn't just an organization, it's a different way of life. Everything is timed and measured, and you know where you stand. Civilian life is none of those things.",
+            "Before Big AL, I had Samson, an American Akita, my best friend and my service dog. He was healthy and full of life until bloat twisted his stomach. Even with emergency surgery, he didn't make it. He was my second Akita taken by bloat. There are losses you can't prepare your heart for. I spent two years without a dog, afraid to love another one because I couldn't bear that kind of loss again.",
+            "Then a sign appeared. Literally. A \"Puppies\" sign went up less than 200 feet from our driveway. My wife said let's go just to look. I was the first person there, so I had first choice. That's when I met Big AL, and something about him spoke to me.",
+            "Within days he wasn't just a puppy. He was my companion, my comfort, my reason to get up and keep moving. He seemed to sense when I was hurting. Wherever I went, he followed. When I stood, he stood. When I moved, he moved. Then, three days after I brought him home, my wife left me. That little puppy didn't know how much I depended on him, but he made it obvious how much he depended on me. Our bond took on a different meaning.",
+            "Big AL knows things I never taught him. The first time I told him to sit and stay, he did it, and held it while I walked into the house and back. He watches my eyes. On a difficult phone call, I glance over and he's looking at me with sad eyes, ears down, moving close. He gives me things I never knew I needed.",
+            "A good two-year program would have cost nearly $10,000, far beyond my reach. Then, days later, a phone call described a program just like it. When I said I couldn't afford it, I heard the words that changed everything: \"It's free for qualifying veterans.\" Big AL was only ten months old, and about 100 veterans were ahead of us on the waiting list. That phone call introduced us to Vets To Vets United. What I've found here is unlike anything since my years in the Corps. The trainers don't just teach the physical side. They teach us what the dog is thinking and why. It changes how you communicate.",
+            "We've been training since March. I developed narcolepsy, likely from chemical exposure, and I take the maximum dosage of medication just to stay awake. I want Big AL trained to help keep me safe. Vets To Vets United is also paying for preventive surgery to tack Big AL's stomach so it can never flip the way Samson's did. He's 120 pounds with a head like a horse, imposing but the gentlest soul. At the VA hospital, I've watched wheelchair-bound servicemen light up when he walks in. That's rewarding in a way I can't describe.",
+            "One day I was telling an older veteran in a wheelchair about our program. I mentioned the waiting list. I told him I'd waited about two years. Tears rolled down his cheek, and he said he may not have two years. I wish we could reach more veterans. This program should be nationwide, in every state and every community. It would save so many animals, veterans, and their families.",
+            "The Bible says every good and perfect gift is from above. Big AL was that gift. Vets To Vets United showed us what that gift could become. If you're reading this, please sponsor our team. Your gift doesn't just train a dog. It reaches the veteran who may not have two years."
+          ]
+        }
+      ];
+      var portraitSvg = '<svg viewBox="0 0 120 120" aria-hidden="true"><path fill="currentColor" d="M47 54c-7-5-11-13-11-23C36 14 47 3 61 3s25 11 25 28c0 10-4 19-12 24 17 6 29 20 32 39H16c3-20 14-34 31-40Zm39 9c13-10 31-2 31 14 0 14-13 24-31 32-18-8-31-18-31-32 0-12 11-20 22-17l9 3Z"/></svg>';
+
+      function closeNavigationMenus() {
+        document.querySelectorAll('.nav-toggle').forEach(function (toggle) {
+          toggle.setAttribute('aria-expanded', 'false');
+          toggle.setAttribute('aria-label', 'Open navigation menu');
+          document.getElementById(toggle.getAttribute('aria-controls')).removeAttribute('data-open');
+        });
+      }
+
+      document.querySelectorAll('.nav-toggle').forEach(function (toggle) {
+        var nav = document.getElementById(toggle.getAttribute('aria-controls'));
+        toggle.addEventListener('click', function () {
+          var isOpen = toggle.getAttribute('aria-expanded') === 'true';
+          closeNavigationMenus();
+          if (!isOpen) {
+            toggle.setAttribute('aria-expanded', 'true');
+            toggle.setAttribute('aria-label', 'Close navigation menu');
+            nav.setAttribute('data-open', 'true');
+          }
+        });
+      });
+
+      document.querySelectorAll('.dog-tags-cta').forEach(function (cta) {
+        cta.addEventListener('click', function (event) {
+          event.preventDefault();
+          closeNavigationMenus();
+          if (!profile.hidden) {
+            profile.hidden = true;
+            landing.removeAttribute('aria-hidden');
+            landing.inert = false;
+            document.body.classList.remove('profile-open');
+            document.title = 'Dog Tags — Vets To Vets United';
+          }
+          history.pushState(null, '', location.pathname + '#teams');
+          document.getElementById('teams').scrollIntoView({ behavior: 'instant', block: 'start' });
+        });
+      });
+
+      teams.forEach(function (team, index) {
+        var number = index + 1;
+        var card = document.createElement('a');
+        card.className = 'team-card';
+        card.href = '?team=' + number;
+        card.setAttribute('data-open-team', number);
+        card.setAttribute('aria-label', 'Open the story for ' + team.veteran + ' and ' + team.dog);
+        var portrait = team.portrait
+          ? '<div class="portrait-placeholder"><img class="team-portrait" src="' + team.portrait + '" alt="' + team.veteran + ' with ' + team.dog + '"></div>'
+          : '<div class="portrait-placeholder">' + portraitSvg + '<span class="portrait-note">Team portrait</span></div>';
+        card.innerHTML = portrait +
+          '<div class="team-info"><div class="team-index">Team ' + String(number).padStart(2, '0') + '</div><h3>' + team.veteran + ' &amp; ' + team.dog + '</h3><p>' + team.detail + ' <span aria-hidden="true">→</span></p></div>';
+        grid.appendChild(card);
+      });
+
+      var previous = document.getElementById('previous-team');
+      var next = document.getElementById('next-team');
+      var closeProfileButton = document.getElementById('close-profile');
+      var lastFocused = null;
+
+      function showTeam(teamNumber, updateHistory) {
+        if (teamNumber < 1 || teamNumber > teams.length) return;
+        var team = teams[teamNumber - 1];
+        var previousNumber = teamNumber === 1 ? teams.length : teamNumber - 1;
+        var nextNumber = teamNumber === teams.length ? 1 : teamNumber + 1;
+        var opening = profile.hidden;
+        if (opening) lastFocused = document.activeElement;
+
+        document.getElementById('profile-index').textContent = 'Team ' + String(teamNumber).padStart(2, '0');
+        document.getElementById('profile-title').innerHTML = team.veteran + '<br>&amp; ' + team.dog;
+        document.getElementById('profile-detail').textContent = team.detail;
+        var profilePhoto = document.getElementById('profile-photo');
+        profilePhoto.innerHTML = team.portrait
+          ? '<img class="team-portrait" src="' + team.portrait + '" alt="' + team.veteran + ' with ' + team.dog + '">'
+          : portraitSvg + '<span class="portrait-note">Team portrait</span>';
+        profilePhoto.setAttribute('aria-label', team.portrait ? team.veteran + ' with ' + team.dog : 'Team portrait');
+        var story = document.getElementById('profile-story');
+        var storyCaption = document.getElementById('profile-story-caption');
+        story.replaceChildren();
+        if (team.story) {
+          story.removeAttribute('aria-hidden');
+          team.story.forEach(function (paragraph) {
+            var copy = document.createElement('p');
+            copy.textContent = paragraph;
+            story.appendChild(copy);
+          });
+          storyCaption.hidden = true;
+        } else {
+          story.setAttribute('aria-hidden', 'true');
+          for (var lineNumber = 0; lineNumber < 5; lineNumber += 1) {
+            var line = document.createElement('div');
+            line.className = 'copy-line';
+            story.appendChild(line);
+          }
+          storyCaption.hidden = false;
+        }
+        document.getElementById('fact-veteran').textContent = team.veteran;
+        document.getElementById('fact-dog').textContent = team.dog;
+        document.getElementById('fact-breed').textContent = team.detail.split(' · ')[0];
+        document.getElementById('fact-age').textContent = team.detail.split(' · ')[1];
+        document.getElementById('profile-cta-title').textContent = 'Stand beside ' + team.veteran + ' & ' + team.dog;
+        var sponsorLink = document.getElementById('profile-sponsor-link');
+        var sponsorCopy = document.getElementById('profile-cta-copy');
+        if (team.donation) {
+          sponsorLink.href = team.donation;
+          sponsorLink.removeAttribute('aria-disabled');
+          sponsorLink.textContent = 'Sponsor this team →';
+          sponsorLink.setAttribute('aria-label', 'Sponsor ' + team.veteran + ' and ' + team.dog + ' through Network for Good');
+          sponsorCopy.textContent = 'Help this team reach its $1,000 monthly goal through the secure Network for Good campaign form.';
+        } else {
+          sponsorLink.removeAttribute('href');
+          sponsorLink.setAttribute('aria-disabled', 'true');
+          sponsorLink.textContent = 'Sponsorship page coming soon';
+          sponsorLink.setAttribute('aria-label', 'Sponsorship page for ' + team.veteran + ' and ' + team.dog + ' coming soon');
+          sponsorCopy.textContent = 'This team’s sponsorship page is being prepared.';
+        }
+        document.getElementById('team-position').textContent = 'Team ' + teamNumber + ' of ' + teams.length;
+        previous.href = '?team=' + previousNumber;
+        next.href = '?team=' + nextNumber;
+        previous.setAttribute('data-open-team', previousNumber);
+        next.setAttribute('data-open-team', nextNumber);
+        previous.setAttribute('aria-label', 'Previous team, ' + teams[previousNumber - 1].veteran + ' and ' + teams[previousNumber - 1].dog);
+        next.setAttribute('aria-label', 'Next team, ' + teams[nextNumber - 1].veteran + ' and ' + teams[nextNumber - 1].dog);
+
+        profile.hidden = false;
+        window.scrollTo(0, 0);
+        landing.setAttribute('aria-hidden', 'true');
+        landing.inert = true;
+        document.body.classList.add('profile-open');
+        document.title = team.veteran + ' & ' + team.dog + ' — Dog Tags';
+        if (updateHistory) history.pushState({ team: teamNumber }, '', '?team=' + teamNumber);
+        if (opening) requestAnimationFrame(function () { closeProfileButton.focus(); });
+      }
+
+      function closeTeam(updateHistory) {
+        profile.hidden = true;
+        landing.removeAttribute('aria-hidden');
+        landing.inert = false;
+        document.body.classList.remove('profile-open');
+        document.title = 'Dog Tags — Vets To Vets United';
+        if (updateHistory) history.pushState(null, '', location.pathname + '#teams');
+        if (lastFocused && document.contains(lastFocused)) lastFocused.focus();
+        else document.getElementById('teams').scrollIntoView();
+      }
+
+      document.addEventListener('click', function (event) {
+        var teamLink = event.target.closest('[data-open-team]');
+        if (teamLink) {
+          event.preventDefault();
+          showTeam(Number(teamLink.getAttribute('data-open-team')), true);
+        }
+      });
+
+      closeProfileButton.addEventListener('click', function (event) {
+        event.preventDefault();
+        closeTeam(true);
+      });
+
+      document.addEventListener('keydown', function (event) {
+        if (profile.hidden) return;
+        if (event.key === 'Escape') {
+          closeTeam(true);
+          return;
+        }
+        if (event.key === 'Tab') {
+          var focusable = profile.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])');
+          if (!focusable.length) return;
+          var first = focusable[0];
+          var last = focusable[focusable.length - 1];
+          if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+          } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
+          }
+        }
+      });
+
+      window.addEventListener('popstate', function () {
+        var number = Number(new URLSearchParams(location.search).get('team'));
+        if (number >= 1 && number <= teams.length) showTeam(number, false);
+        else closeTeam(false);
+      });
+
+      var initialTeam = Number(new URLSearchParams(location.search).get('team'));
+      if (initialTeam >= 1 && initialTeam <= teams.length) showTeam(initialTeam, false);
+    })();
+  </script>
+</body>
+</html>
